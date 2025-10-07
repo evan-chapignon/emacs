@@ -1,0 +1,156 @@
+(setq use-package-always-ensure t)
+(condition-case nil
+    (require 'use-package)
+  (file-error
+   (package-refresh-contents)
+   (package-install 'use-package)
+   (require 'use-package)))
+
+
+  (require 'package)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
+(load-theme 'modus-operandi)
+
+(display-battery-mode 1)
+(electric-pair-mode 1)
+(global-display-line-numbers-mode t)
+(global-font-lock-mode 1)
+(menu-bar-mode -1)
+(recentf-mode 1)
+(save-place-mode 1)
+(savehist-mode 1)
+(scroll-bar-mode -1)
+(set-face-attribute 'default nil :font "Iosevka Fixed" :height 110)
+(set-face-attribute 'variable-pitch nil :font "Iosevka Fixed" :height 110)
+(setq backup-directory-alist '(("." . "~/.config/emacs/backups")))
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(setq evil-want-keybinding nil)
+(setq history-length 25)
+(setq org-agenda-files '("~/org/edt.org"))
+(setq org-agenda-span 30)
+(setq org-default-notes-file "~/org/capture.org")
+(setq org-directory "~/org")
+(setq org-hide-emphasis-markers t)
+(setq org-pretty-entities t)
+(setq ring-bell-function 'ignore)
+(setq visible-bell t)
+(setq-default tab-width 4)
+(tool-bar-mode -1)
+(delete-selection-mode t)
+(setq mu4e-maildir "~/Mail/gmail")
+(require 'mu4e)
+(setq user-mail-address "evan.delepine-gengembre@univ-lille.fr"
+    user-full-name "Evan Delepine")
+
+
+(setq inhibit-startup-screen t)
+(setq initial-scratch-message nil)
+
+(setq initial-buffer-choice "~/cours_perso/S3")
+
+(defun ouvrir-config-emacs ()
+  (interactive)
+  (find-file "~/.config/emacs/init.org"))
+(global-set-key (kbd "C-c e") 'ouvrir-config-emacs)
+
+(defun shuffle-lines (beg end)
+(interactive "r")
+(let ((lines (split-string (buffer-substring beg end) "\n" t)))
+  (setq lines (shuffle-vector (vconcat lines)))
+  (delete-region beg end)
+  (goto-char beg)
+  (insert (mapconcat 'identity (append lines nil) "\n"))))
+
+;; Je vous PROMETS que c'est utile
+
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c C-r") 'recentf-open-files)
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-:") 'ibuffer)
+
+;; Pas vraiment une fonction, mais ouvre vterm dans un buffer sous le
+;;  buffer actuel, un peu comme vscode
+(add-to-list 'display-buffer-alist
+           '("\\*vterm\\*"
+             (display-buffer-reuse-window
+              display-buffer-in-direction)
+             (direction . bottom)
+             (window-height . 0.3)))
+
+(use-package org
+  :hook ((org-mode . org-indent-mode)
+         (org-mode . visual-line-mode)
+         (org-mode . variable-pitch-mode)
+         (org-mode . org-modern-mode))
+  :config
+  (setq org-hide-leading-stars t     
+        org-startup-indented t       
+        org-ellipsis "…"))           
+
+(use-package org-modern
+  :after org
+  :config
+  (setq org-modern-star '("◉" "○" "✸" "✿" "◆")
+        org-modern-hide-stars t      
+        org-modern-table nil         
+        org-modern-checkbox '((?X . "☑") (?- . "❍") (?\s . "☐"))))
+
+(add-hook 'org-mode-hook
+        (lambda ()
+          (variable-pitch-mode 1)
+          (set-face-attribute 'variable-pitch nil :font "Iosevka Fixed" :height 110)))
+
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "M-<return>") #'org-meta-return))
+
+(setq org-capture-templates
+    '(("t" "Tâche" entry (file+headline "~/org/todo.org" "Tâches")
+       "* TODO %?\n  %u\n  %a")))
+
+(defun imp-edt ()
+(interactive)
+(let* ((url "https://edt-iut.univ-lille.fr/Telechargements/ical/Edt_DELEPINE_GENGEMBRE.ics?version=2018.0.3.6&idICal=F44073DA6A5D3F2604325CF447C258C5&param=643d5b312e2e36325d2666683d3126663d31")
+       (local-file "/tmp/edt.ics")
+       (org-file (expand-file-name "edt_backup.org" org-directory))
+       (converted-file (expand-file-name "edt.org" org-directory)))
+  (url-copy-file url local-file t)
+  (when (file-exists-p org-file)
+    (delete-file org-file))
+  (icalendar-import-file local-file org-file)
+  (message "Emploi du temps importé dans %s" org-file)
+
+  (with-temp-buffer
+    (insert-file-contents org-file)
+    (goto-char (point-min))
+    (let ((lines '())
+          (output ""))
+      (while (not (eobp))
+        (let ((line (string-trim (thing-at-point 'line t))))
+          (unless (string-empty-p line)
+            (push line lines)))
+        (forward-line 1))
+      (setq lines (nreverse lines))
+      (while lines
+        (let ((line (car lines)))
+          (when (string-match "\\([0-9]+\\)/\\([0-9]+\\)/\\([0-9]+\\) \\([0-9:]+\\)-\\([0-9:]+\\) \\(.*\\)" line)
+            (let* ((month (match-string 1 line))
+                   (day (match-string 2 line))
+                   (year (match-string 3 line))
+                   (start (match-string 4 line))
+                   (end (match-string 5 line))
+                   (title (match-string 6 line))
+                   (timestamp (format "<%s-%02d-%02d %s-%s>"
+                                      year (string-to-number month) (string-to-number day)
+                                      start end)))
+              (setq output (concat output "* " title "\n  " timestamp "\n\n")))))
+        (setq lines (cdr lines)))
+      (with-temp-file converted-file
+        (insert output))
+      (message "Emploi du temps converti : %s" converted-file)))))
+
+      (global-set-key (kbd "<f12>") #'imp-edt)
+
+(use-package vertico
+:init
+(vertico-mode))
