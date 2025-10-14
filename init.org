@@ -37,7 +37,11 @@ J'installe tous les paquets utilisés via [[melpa.org][MELPA]]
 J'utilise le thème à haut contraste [[https://www.gnu.org/software/emacs/manual/html_mono/modus-themes.html][modus-operandi]]
 
 #+begin_src elisp
-  (load-theme 'modus-operandi)
+  (add-to-list 'custom-theme-load-path "~/.config/emacs/catppuccin")
+  (load-theme 'catppuccin :no-confirm)
+  (setq catppuccin-flavor 'mocha)
+  (catppuccin-reload)
+
 #+end_src
 
 * Variables
@@ -47,22 +51,31 @@ ainsi que des setq.
 Cette longue liste est triée grâce à la fonction sort-lines
 
 #+begin_src elisp
-
+  (delete-selection-mode t)
   (display-battery-mode 1)
   (electric-pair-mode 1)
   (global-display-line-numbers-mode t)
   (global-font-lock-mode 1)
   (menu-bar-mode -1)
+  (olivetti-mode 1)
+  (pixel-scroll-precision-mode 1)
   (recentf-mode 1)
+  (require 'mu4e)
   (save-place-mode 1)
   (savehist-mode 1)
   (scroll-bar-mode -1)
   (set-face-attribute 'default nil :font "Iosevka Fixed" :height 110)
   (set-face-attribute 'variable-pitch nil :font "Iosevka Fixed" :height 110)
+  (set-window-buffer nil (current-buffer))
   (setq backup-directory-alist '(("." . "~/.config/emacs/backups")))
   (setq custom-file (concat user-emacs-directory "custom.el"))
   (setq evil-want-keybinding nil)
   (setq history-length 25)
+  (setq inhibit-startup-screen t)
+  (setq initial-buffer-choice "~/cours_perso/S3")
+  (setq initial-scratch-message nil)
+  (setq mu4e-maildir "~/Mail/gmail")
+  (setq olivetti-body-width 200)
   (setq org-agenda-files '("~/org/edt.org"))
   (setq org-agenda-span 30)
   (setq org-default-notes-file "~/org/capture.org")
@@ -70,21 +83,13 @@ Cette longue liste est triée grâce à la fonction sort-lines
   (setq org-hide-emphasis-markers t)
   (setq org-pretty-entities t)
   (setq ring-bell-function 'ignore)
+  (setq scroll-margin 5)
+  (setq user-mail-address "evan.delepine-gengembre@univ-lille.fr" user-full-name "Evan Delepine")
   (setq visible-bell t)
+  (setq-default left-margin-width 1 right-margin-width 1)
+  (setq-default line-spacing 0.2)
   (setq-default tab-width 4)
   (tool-bar-mode -1)
-  (delete-selection-mode t)
-  (setq mu4e-maildir "~/Mail/gmail")
-  (require 'mu4e)
-  (setq user-mail-address "evan.delepine-gengembre@univ-lille.fr"
-      user-full-name "Evan Delepine")
-
-  
-  (setq inhibit-startup-screen t)
-  (setq initial-scratch-message nil)
-
-  (setq initial-buffer-choice "~/cours_perso/S3")
-
 #+end_src
 
 * Fonction diverses pas assez longues pour en dédier un chapitre
@@ -224,4 +229,20 @@ de mettre l'URL de mon emploi du temps en brut sur un git, mais bon :)
   (use-package vertico
   :init
   (vertico-mode))
+#+end_src
+
+* Modeline
+
+J'utilise mood-line, ou en tout cas je teste :)
+
+#+begin_src elisp
+  (mood-line-mode 1)
+
+  (display-battery-mode 1)
+  (display-time-mode 1)
+
+  (setq display-time-format "%H:%M" 
+        display-time-default-load-average nil)
+
+  (setq battery-mode-line-format " [BAT%p%%]")
 #+end_src

@@ -10,17 +10,23 @@
   (require 'package)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
-(load-theme 'modus-operandi)
+(add-to-list 'custom-theme-load-path "~/.config/emacs/catppuccin")
+(load-theme 'catppuccin :no-confirm)
+(setq catppuccin-flavor 'mocha)
+(catppuccin-reload)
 
 (display-battery-mode 1)
 (electric-pair-mode 1)
 (global-display-line-numbers-mode t)
 (global-font-lock-mode 1)
 (menu-bar-mode -1)
+(olivetti-mode 1)
+(setq olivetti-body-width 200)
 (recentf-mode 1)
 (save-place-mode 1)
 (savehist-mode 1)
 (scroll-bar-mode -1)
+(pixel-scroll-precision-mode 1)
 (set-face-attribute 'default nil :font "Iosevka Fixed" :height 110)
 (set-face-attribute 'variable-pitch nil :font "Iosevka Fixed" :height 110)
 (setq backup-directory-alist '(("." . "~/.config/emacs/backups")))
@@ -48,6 +54,10 @@
 (setq initial-scratch-message nil)
 
 (setq initial-buffer-choice "~/cours_perso/S3")
+(setq-default left-margin-width 1 right-margin-width 1)
+(set-window-buffer nil (current-buffer))
+(setq-default line-spacing 0.2)
+(setq scroll-margin 5)
 
 (defun ouvrir-config-emacs ()
   (interactive)
@@ -154,3 +164,13 @@
 (use-package vertico
 :init
 (vertico-mode))
+
+(mood-line-mode 1)
+
+(display-battery-mode 1)
+(display-time-mode 1)
+
+(setq display-time-format "%H:%M" 
+      display-time-default-load-average nil)
+
+(setq battery-mode-line-format " [BAT%p%%]")
