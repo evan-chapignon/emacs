@@ -76,7 +76,7 @@ Cette longue liste est triée grâce à la fonction sort-lines
   (setq initial-scratch-message nil)
   (setq mu4e-maildir "~/Mail/gmail")
   (setq olivetti-body-width 200)
-  (setq org-agenda-files '("~/org/edt.org"))
+  (setq org-agenda-files '("~/org/todo.org" "~/org/edt.org"))
   (setq org-agenda-span 30)
   (setq org-default-notes-file "~/org/capture.org")
   (setq org-directory "~/org")
@@ -84,7 +84,7 @@ Cette longue liste est triée grâce à la fonction sort-lines
   (setq org-pretty-entities t)
   (setq ring-bell-function 'ignore)
   (setq scroll-margin 5)
-  (setq user-mail-address "evan.delepine-gengembre@univ-lille.fr" user-full-name "Evan Delepine")
+  (setq user-mail-address "evan.delepine-gengembre.etu@univ-lille.fr" user-full-name "Evan Delepine")
   (setq visible-bell t)
   (setq-default left-margin-width 1 right-margin-width 1)
   (setq-default line-spacing 0.2)
@@ -167,9 +167,12 @@ une partie de ma configuration se focalise sur le org-mode
 ** Org capture
 
 #+begin_src elisp
+
   (setq org-capture-templates
-      '(("t" "Tâche" entry (file+headline "~/org/todo.org" "Tâches")
-         "* TODO %?\n  %u\n  %a")))
+      '(("t" "Tâche" entry
+         (file+headline "~/org/todo.org" "Tâches")
+         "* TODO %?\nSCHEDULED: %^t\n%u\n%a"
+         :empty-lines 1)))
 #+end_src
 ** Fonction EDT
 
