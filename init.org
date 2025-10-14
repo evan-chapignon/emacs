@@ -232,6 +232,11 @@ de mettre l'URL de mon emploi du temps en brut sur un git, mais bon :)
   (use-package vertico
   :init
   (vertico-mode))
+
+  (use-package magit
+  :ensure t
+  :bind (("C-x g" . magit-status)))
+
 #+end_src
 
 * Modeline
@@ -248,4 +253,6 @@ J'utilise mood-line, ou en tout cas je teste :)
         display-time-default-load-average nil)
 
   (setq battery-mode-line-format " [BAT%p%%]")
+
+  
 #+end_src

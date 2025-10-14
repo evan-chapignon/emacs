@@ -163,6 +163,10 @@
 :init
 (vertico-mode))
 
+(use-package magit
+:ensure t
+:bind (("C-x g" . magit-status)))
+
 (mood-line-mode 1)
 
 (display-battery-mode 1)
