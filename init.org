@@ -58,8 +58,7 @@ Cette longue liste est triée grâce à la fonction sort-lines
   (global-font-lock-mode 1)
   (menu-bar-mode -1)
   (olivetti-mode 1)
-  ;; (pixel-scroll-precision-mode 1)
-  (company-mode 1)
+  (pixel-scroll-precision-mode 1)
   (recentf-mode 1)
   (require 'mu4e)
   (save-place-mode 1)
@@ -75,7 +74,7 @@ Cette longue liste est triée grâce à la fonction sort-lines
   (setq inhibit-startup-screen t)
   (setq initial-buffer-choice "~/cours_perso/S3")
   (setq initial-scratch-message nil)
-  (setq mu4e-maildir "~/Mail/gmail")
+  (setq mu4e-maildir "~/Mail/univ")
   (setq olivetti-body-width 200)
   (setq org-agenda-files '("~/org/todo.org" "~/org/edt.org"))
   (setq org-agenda-span 30)
@@ -177,10 +176,11 @@ une partie de ma configuration se focalise sur le org-mode
 #+end_src
 ** Fonction EDT
 
-J'importe mon emploi du temps de cours dans mon agenda org grâce à cette
-fonction. Évidemment, changez l'URL pour votre URL (à trouver sur hyperplanning) si vous souhaitez
-copier mon code. À vrai dire, je sais pas trop si c'est une bonne idée
-de mettre l'URL de mon emploi du temps en brut sur un git, mais bon :)
+J'importe mon emploi du temps de cours dans mon agenda org grâce à
+cette fonction. Évidemment, changez l'URL pour votre URL (à trouver
+sur hyperplanning) si vous souhaitez copier mon code. À vrai dire, je
+sais pas trop si c'est une bonne idée de mettre l'URL de mon emploi du
+temps en brut sur un git, mais bon :)
 
 #+begin_src elisp
   (defun imp-edt ()
