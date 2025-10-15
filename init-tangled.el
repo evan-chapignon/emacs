@@ -22,7 +22,7 @@
 (global-font-lock-mode 1)
 (menu-bar-mode -1)
 (olivetti-mode 1)
-(pixel-scroll-precision-mode 1)
+;; (pixel-scroll-precision-mode 1)
 (recentf-mode 1)
 (require 'mu4e)
 (save-place-mode 1)
