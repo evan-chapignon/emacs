@@ -24,11 +24,14 @@
 (olivetti-mode 1)
 (pixel-scroll-precision-mode 1)
 (recentf-mode 1)
-(require 'mu4e)
 (save-place-mode 1)
 (savehist-mode 1)
 (scroll-bar-mode -1)
+(tool-bar-mode -1)
+(company-mode 1)
+
 (set-face-attribute 'default nil :font "Iosevka Fixed" :height 110)
+(require 'mu4e)
 (set-face-attribute 'variable-pitch nil :font "Iosevka Fixed" :height 110)
 (set-window-buffer nil (current-buffer))
 (setq backup-directory-alist '(("." . "~/.config/emacs/backups")))
@@ -53,7 +56,6 @@
 (setq-default left-margin-width 1 right-margin-width 1)
 (setq-default line-spacing 0.2)
 (setq-default tab-width 4)
-(tool-bar-mode -1)
 
 (defun ouvrir-config-emacs ()
   (interactive)
@@ -73,7 +75,7 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c C-r") 'recentf-open-files)
 (global-set-key (kbd "C-c c") 'org-capture)
-(global-set-key (kbd "C-:") 'ibuffer)
+(global-set-key (kbd "C-:") 'er/expand-region)
 
 ;; Pas vraiment une fonction, mais ouvre vterm dans un buffer sous le
 ;;  buffer actuel, un peu comme vscode
