@@ -64,6 +64,8 @@ J'active ici plein de modes super chouettes
   (scroll-bar-mode -1)
   (tool-bar-mode -1)
   (company-mode 1)
+  (which-key-mode 1)
+  (auto-fill-mode 1)
 #+end_src
 * Variables
 
@@ -124,6 +126,8 @@ J'ai aussi mis mes keybinds car je suis très mauvais pour ranger
   (global-set-key (kbd "C-c C-r") 'recentf-open-files)
   (global-set-key (kbd "C-c c") 'org-capture)
   (global-set-key (kbd "C-:") 'er/expand-region)
+  (global-set-key (kbd "C-<tab>") 'other-window)
+
 
   ;; Pas vraiment une fonction, mais ouvre vterm dans un buffer sous le
   ;;  buffer actuel, un peu comme vscode

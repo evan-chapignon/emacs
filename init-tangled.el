@@ -76,6 +76,8 @@
 (global-set-key (kbd "C-c C-r") 'recentf-open-files)
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-:") 'er/expand-region)
+(global-set-key (kbd "C-<tab>") 'other-window)
+
 
 ;; Pas vraiment une fonction, mais ouvre vterm dans un buffer sous le
 ;;  buffer actuel, un peu comme vscode
