@@ -186,7 +186,28 @@ une partie de ma configuration se focalise sur le org-mode
          "* TODO %?\nSCHEDULED: %^t\n%u\n%a"
          :empty-lines 1)))
 #+end_src
-** Fonction EDT
+
+** Org-babel
+
+#+begin_src elisp
+  (org-babel-load-languages
+   '((emacs-lisp . t)
+     (C . t)
+     (latex . t)
+     (gnuplot . t)
+     (dot . t)
+     (java . t)
+     (python . t)
+     (makefile . t)
+     (org . t)
+     (perl . t)
+     (sed . t)
+     (shell . t)
+     (rust . t)
+     ))
+#+end_src
+
+* Fonction EDT
 
 J'importe mon emploi du temps de cours dans mon agenda org grâce à
 cette fonction. Évidemment, changez l'URL pour votre URL (à trouver
