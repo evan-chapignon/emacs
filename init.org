@@ -57,7 +57,7 @@ J'active ici plein de modes super chouettes
   (global-font-lock-mode 1)
   (menu-bar-mode -1)
   (olivetti-mode 1)
-  (pixel-scroll-precision-mode 1)
+;;  (pixel-scroll-precision-mode 1)
   (recentf-mode 1)
   (save-place-mode 1)
   (savehist-mode 1)
@@ -65,7 +65,7 @@ J'active ici plein de modes super chouettes
   (tool-bar-mode -1)
   (company-mode 1)
   (which-key-mode 1)
-  (auto-fill-mode 1)
+
 #+end_src
 * Variables
 
@@ -74,9 +74,9 @@ setq.  Cette longue liste est triée grâce à la
 fonction sort-lines
 
 #+begin_src elisp
-  (set-face-attribute 'default nil :font "Iosevka Fixed" :height 110)
+  (set-face-attribute 'default nil :font "Iosevka" :height 110)
   (require 'mu4e)
-  (set-face-attribute 'variable-pitch nil :font "Iosevka Fixed" :height 110)
+  (set-face-attribute 'variable-pitch nil :font "Iosevka" :height 110)
   (set-window-buffer nil (current-buffer))
   (setq backup-directory-alist '(("." . "~/.config/emacs/backups")))
   (setq custom-file (concat user-emacs-directory "custom.el"))
@@ -89,6 +89,7 @@ fonction sort-lines
   (setq olivetti-body-width 200)
   (setq org-agenda-files '("~/org/todo.org" "~/org/edt.org"))
   (setq org-agenda-span 30)
+  (setq-default auto-fill-function 'do-auto-fill)
   (setq org-default-notes-file "~/org/capture.org")
   (setq org-directory "~/org")
   (setq org-hide-emphasis-markers t)
@@ -169,7 +170,7 @@ une partie de ma configuration se focalise sur le org-mode
   (add-hook 'org-mode-hook
           (lambda ()
             (variable-pitch-mode 1)
-            (set-face-attribute 'variable-pitch nil :font "Iosevka Fixed" :height 110)))
+            (set-face-attribute 'variable-pitch nil :font "Iosevka" :height 110)))
 
   (with-eval-after-load 'org
     (define-key org-mode-map (kbd "M-<return>") #'org-meta-return))
@@ -189,23 +190,23 @@ une partie de ma configuration se focalise sur le org-mode
 
 ** Org-babel
 
-#+begin_src elisp
-  (org-babel-load-languages
-   '((emacs-lisp . t)
-     (C . t)
-     (latex . t)
-     (gnuplot . t)
-     (dot . t)
-     (java . t)
-     (python . t)
-     (makefile . t)
-     (org . t)
-     (perl . t)
-     (sed . t)
-     (shell . t)
-     (rust . t)
-     ))
-#+end_src
+# #+begin_src elisp
+#   (org-babel-load-languages
+#    '((emacs-lisp . t)
+#      (C . t)
+#      (latex . t)
+#      (gnuplot . t)
+#      (dot . t)
+#      (java . t)
+#      (python . t)
+#      (makefile . t)
+#      (org . t)
+#      (perl . t)
+#      (sed . t)
+#      (shell . t)
+#      (rust . t)
+#      ))
+# #+end_src
 
 * Fonction EDT
 
