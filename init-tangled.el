@@ -182,3 +182,5 @@
       display-time-default-load-average nil)
 
 (setq battery-mode-line-format " [BAT%p%%]")
+
+^aouednts
