@@ -32,17 +32,6 @@ J'installe tous les paquets utilisés via [[melpa.org][MELPA]]
 
 #+end_src
 
-* Thème
-
-J'utilise le thème à haut contraste [[https://www.gnu.org/software/emacs/manual/html_mono/modus-themes.html][modus-operandi]]
-
-#+begin_src elisp
-  (add-to-list 'custom-theme-load-path "~/.config/emacs/catppuccin")
-  (load-theme 'catppuccin :no-confirm)
-  (setq catppuccin-flavor 'mocha)
-  (catppuccin-reload)
-
-#+end_src
 
 * Les modes
 
