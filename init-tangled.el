@@ -63,6 +63,7 @@
   (interactive)
   (find-file "~/.config/emacs/init.org"))
 (global-set-key (kbd "C-c e") 'ouvrir-config-emacs)
+(global-set-key (kbd "C-o") 'avy-goto-char)
 
 (defun shuffle-lines (beg end)
 (interactive "r")
@@ -182,5 +183,3 @@
       display-time-default-load-average nil)
 
 (setq battery-mode-line-format " [BAT%p%%]")
-
-^aouednts
