@@ -10,11 +10,6 @@
   (require 'package)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
-(add-to-list 'custom-theme-load-path "~/.config/emacs/catppuccin")
-(load-theme 'catppuccin :no-confirm)
-(setq catppuccin-flavor 'mocha)
-(catppuccin-reload)
-
 (delete-selection-mode t)
   (display-battery-mode 1)
   (electric-pair-mode 1)
@@ -61,9 +56,11 @@
 
 (defun ouvrir-config-emacs ()
   (interactive)
-  (find-file "~/.config/emacs/init.org"))
+  (find-file "~/.config/emacs/README.org"))
 (global-set-key (kbd "C-c e") 'ouvrir-config-emacs)
 (global-set-key (kbd "C-o") 'avy-goto-char)
+(global-set-key (kbd "C-c l") 'avy-copy-line)
+(global-set-key (kbd "C-c s") 'avy-goto-line)
 
 (defun shuffle-lines (beg end)
 (interactive "r")
@@ -122,6 +119,10 @@
        (file+headline "~/org/todo.org" "Tâches")
        "* TODO %?\nSCHEDULED: %^t\n%u\n%a"
        :empty-lines 1)))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((conf . t)))
 
 (defun imp-edt ()
 (interactive)
