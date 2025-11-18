@@ -1,17 +1,18 @@
-#+AUTHOR: Evan
-#+DATE: <2025-09-25 Thu>
-#+EMAIL: evan.delepine-gengembre.etu@univ-lille.fr
-#+PROPERTY: header-args :tangle ~/.config/emacs/latex.el
-
+#+PROPERTY: header-args :results silent :tangle yes
 
 #+begin_src elisp
-(with-eval-after-load 'ox-latex
-  (add-to-list 'org-latex-classes
-               '("tufte-handout"
-                 "\\documentclass{tufte-handout}
-[NO-DEFAULT-PACKAGES]
-[NO-PACKAGES]"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
+  (with-eval-after-load 'ox-latex
+(add-to-list 'org-latex-classes
+             '("org-plain-latex"
+               "\\documentclass{article}
+           [NO-DEFAULT-PACKAGES]
+           [PACKAGES]
+           [EXTRA]"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
+(setq org-latex-listings 't)
 #+end_src

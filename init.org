@@ -3,7 +3,6 @@
 #+EMAIL: evan.delepine-gengembre.etu@univ-lille.fr
 #+PROPERTY: header-args :results silent :tangle yes
 
-
 * Configuration Emacs (Programmation littéraire)
 
 ~La paresse c'est se lever à six heures du matin, pour avoir plus de
@@ -308,3 +307,16 @@ J'ai une repo git privée où je range mon emploi du temps
   (global-set-key (kbd "C-c c") 'org-capture)
   (global-set-key (kbd "C-c a") 'org-agenda)
  #+end_src
+
+
+
+
+
+
+
+* AUTRES FICHIERS CHARGÉS
+
+#+begin_src elisp
+  (load "~/.config/emacs/theme.el")
+  (load "~/.config/emacs/latex.el")
+#+end_src

@@ -45,8 +45,6 @@
 (setq initial-scratch-message nil)
 (setq mu4e-maildir "~/Mail/univ")
 (setq olivetti-body-width 200)
-(setq org-agenda-files '("~/org/todo.org" "~/org/edt.org"))
-(setq org-agenda-span 30)
 (setq-default auto-fill-function 'do-auto-fill)
 (setq org-default-notes-file "~/org/capture.org")
 (setq org-directory "~/org")
@@ -78,9 +76,9 @@
 
 ;; Je vous PROMETS que c'est utile
 
-(global-set-key (kbd "C-c a") 'org-agenda)
+
 (global-set-key (kbd "C-c C-r") 'recentf-open-files)
-(global-set-key (kbd "C-c c") 'org-capture)
+
 (global-set-key (kbd "C-:") 'er/expand-region)
 (global-set-key (kbd "C-<tab>") 'other-window)
 
@@ -120,55 +118,6 @@
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "M-<return>") #'org-meta-return))
 
-(setq org-capture-templates
-    '(("t" "Tâche" entry
-       (file+headline "~/org/todo.org" "Tâches")
-       "* TODO %?\nSCHEDULED: %^t\n%u\n%a"
-       :empty-lines 1)))
-
-(defun imp-edt ()
-(interactive)
-(let* ((url "https://edt-iut.univ-lille.fr/Telechargements/ical/Edt_DELEPINE_GENGEMBRE.ics?version=2018.0.3.6&idICal=F44073DA6A5D3F2604325CF447C258C5&param=643d5b312e2e36325d2666683d3126663d31")
-       (local-file "/tmp/edt.ics")
-       (org-file (expand-file-name "edt_backup.org" org-directory))
-       (converted-file (expand-file-name "edt.org" org-directory)))
-  (url-copy-file url local-file t)
-  (when (file-exists-p org-file)
-    (delete-file org-file))
-  (icalendar-import-file local-file org-file)
-  (message "Emploi du temps importé dans %s" org-file)
-
-  (with-temp-buffer
-    (insert-file-contents org-file)
-    (goto-char (point-min))
-    (let ((lines '())
-          (output ""))
-      (while (not (eobp))
-        (let ((line (string-trim (thing-at-point 'line t))))
-          (unless (string-empty-p line)
-            (push line lines)))
-        (forward-line 1))
-      (setq lines (nreverse lines))
-      (while lines
-        (let ((line (car lines)))
-          (when (string-match "\\([0-9]+\\)/\\([0-9]+\\)/\\([0-9]+\\) \\([0-9:]+\\)-\\([0-9:]+\\) \\(.*\\)" line)
-            (let* ((month (match-string 1 line))
-                   (day (match-string 2 line))
-                   (year (match-string 3 line))
-                   (start (match-string 4 line))
-                   (end (match-string 5 line))
-                   (title (match-string 6 line))
-                   (timestamp (format "<%s-%02d-%02d %s-%s>"
-                                      year (string-to-number month) (string-to-number day)
-                                      start end)))
-              (setq output (concat output "* " title "\n  " timestamp "\n\n")))))
-        (setq lines (cdr lines)))
-      (with-temp-file converted-file
-        (insert output))
-      (message "Emploi du temps converti : %s" converted-file)))))
-
-      (global-set-key (kbd "<f12>") #'imp-edt)
-
 (use-package vertico
 :init
 (vertico-mode))
@@ -186,3 +135,15 @@
       display-time-default-load-average nil)
 
 (setq battery-mode-line-format " [BAT%p%%]")
+
+(setq org-agenda-files '("~/org/TODO/todo.org" "~/org/edt.org"))
+(setq org-agenda-span 30)
+
+(setq org-capture-templates
+      '(("t" "Tâche" entry
+		 (file+headline "~/org/todo.org" "Tâches")
+		 "* TODO %?\nSCHEDULED: %^t\n%u\n%a"
+		 :empty-lines 1)))
+
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c a") 'org-agenda)
