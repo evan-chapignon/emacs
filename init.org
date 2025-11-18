@@ -2,6 +2,7 @@
 #+DATE: <2025-09-25 Thu>
 #+EMAIL: evan.delepine-gengembre.etu@univ-lille.fr
 #+PROPERTY: header-args :results silent :tangle yes
+#+SETUPFILE: ~/.config/emacs/latexport.org
 
 * Configuration Emacs (Programmation littéraire)
 
@@ -10,12 +11,12 @@ temps à ne rien faire.~
 
 Ce fichier me permet d'organiser ma configuration emacs en [[https://orgmode.org][org-mode]],
 décrite en français. pour toute question/remarque, n'hésitez pas à me
-contacter par mail à evan.delepine-gengembre.etu@univ-lille.fr :) (nom de
+contacter par mail à [[mailto:evan.delepine-gengembre.etu@univ-lille.fr][evan.delepine-gengembre.etu@univ-lille.fr]] :) (nom de
 famille comiquement long) 
 
 * Sources
 
-J'installe tous les paquets utilisés via [[melpa.org][MELPA]]
+J'installe tous les paquets utilisés via [[https://melpa.org][MELPA]]
 
 #+begin_src elisp
     (setq use-package-always-ensure t)
@@ -28,8 +29,7 @@ J'installe tous les paquets utilisés via [[melpa.org][MELPA]]
 
 
     (require 'package)
-    (add-to-list 'package-archives '("melpa"
-  . "https://melpa.org/packages/") t)
+    (add-to-list 'package-archives '("melpa" "https://melpa.org/packages/") t)
 
 
 #+end_src
