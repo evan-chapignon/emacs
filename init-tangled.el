@@ -8,7 +8,14 @@
 
 
   (require 'package)
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  (add-to-list 'package-archives '("melpa"
+. "https://melpa.org/packages/") t)
+
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+
+(add-hook 'emacs-startup-hook #'recentf-open-files)
 
 (delete-selection-mode t)
   (display-battery-mode 1)
@@ -35,7 +42,6 @@
 (setq evil-want-keybinding nil)
 (setq history-length 25)
 (setq inhibit-startup-screen t)
-(setq initial-buffer-choice "~/cours_perso/S3")
 (setq initial-scratch-message nil)
 (setq mu4e-maildir "~/Mail/univ")
 (setq olivetti-body-width 200)
@@ -119,10 +125,6 @@
        (file+headline "~/org/todo.org" "Tâches")
        "* TODO %?\nSCHEDULED: %^t\n%u\n%a"
        :empty-lines 1)))
-
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((conf . t)))
 
 (defun imp-edt ()
 (interactive)

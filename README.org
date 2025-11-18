@@ -18,20 +18,33 @@ famille comiquement long)
 J'installe tous les paquets utilisés via [[melpa.org][MELPA]]
 
 #+begin_src elisp
-  (setq use-package-always-ensure t)
-(condition-case nil
-    (require 'use-package)
-  (file-error
-   (package-refresh-contents)
-   (package-install 'use-package)
-   (require 'use-package)))
+    (setq use-package-always-ensure t)
+  (condition-case nil
+      (require 'use-package)
+    (file-error
+     (package-refresh-contents)
+     (package-install 'use-package)
+     (require 'use-package)))
 
 
-  (require 'package)
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+    (require 'package)
+    (add-to-list 'package-archives '("melpa"
+  . "https://melpa.org/packages/") t)
+
 
 #+end_src
 
+* Boot screen
+
+J'ouvre emacs sur ma liste de fichiers récents
+
+#+begin_src elisp
+  (require 'recentf)
+  (recentf-mode 1)
+  (setq recentf-max-menu-items 25)
+
+  (add-hook 'emacs-startup-hook #'recentf-open-files)
+#+end_src
 
 * Les modes
 
@@ -72,7 +85,6 @@ fonction sort-lines
   (setq evil-want-keybinding nil)
   (setq history-length 25)
   (setq inhibit-startup-screen t)
-  (setq initial-buffer-choice "~/cours_perso/S3")
   (setq initial-scratch-message nil)
   (setq mu4e-maildir "~/Mail/univ")
   (setq olivetti-body-width 200)
@@ -90,6 +102,7 @@ fonction sort-lines
   (setq-default left-margin-width 1 right-margin-width 1)
   (setq-default line-spacing 0.2)
   (setq-default tab-width 4)
+
 #+end_src
 
 * Fonction diverses pas assez longues pour en dédier un chapitre

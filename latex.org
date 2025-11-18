@@ -1,0 +1,17 @@
+#+AUTHOR: Evan
+#+DATE: <2025-09-25 Thu>
+#+EMAIL: evan.delepine-gengembre.etu@univ-lille.fr
+#+PROPERTY: header-args :tangle ~/.config/emacs/latex.el
+
+
+#+begin_src elisp
+(with-eval-after-load 'ox-latex
+  (add-to-list 'org-latex-classes
+               '("tufte-handout"
+                 "\\documentclass{tufte-handout}
+[NO-DEFAULT-PACKAGES]
+[NO-PACKAGES]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
+#+end_src
