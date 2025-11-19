@@ -264,13 +264,20 @@ temps en brut sur un git, mais bon :)
 
 #+begin_src elisp
   (use-package vertico
-  :init
-  (vertico-mode))
+    :init
+    (vertico-mode))
 
   (use-package magit
-  :ensure t
-  :bind (("C-x g" . magit-status)))
+    :ensure t
+    :bind (("C-x g" . magit-status)))
 
+  (use-package yasnippet
+    (setq yas-snippet-dirs
+  		'("~/.config/emacs/snippets"))
+    
+    (yas-global-mode 1)
+    )
+  
 #+end_src
 
 * Modeline
