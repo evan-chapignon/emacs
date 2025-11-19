@@ -63,12 +63,12 @@
 (global-set-key (kbd "C-c s") 'avy-goto-line)
 
 (defun shuffle-lines (beg end)
-  (interactive "r")
-  (let ((lines (split-string (buffer-substring beg end) "\n" t)))
-	(setq lines (shuffle-vector (vconcat lines)))
-	(delete-region beg end)
-	(goto-char beg)
-	(insert (mapconcat 'identity (append lines nil) "\n"))))
+(interactive "r")
+(let ((lines (split-string (buffer-substring beg end) "\n" t)))
+  (setq lines (shuffle-vector (vconcat lines)))
+  (delete-region beg end)
+  (goto-char beg)
+  (insert (mapconcat 'identity (append lines nil) "\n"))))
 
 ;; Je vous PROMETS que c'est utile
 
@@ -82,58 +82,58 @@
 ;; Pas vraiment une fonction, mais ouvre vterm dans un buffer sous le
 ;;  buffer actuel, un peu comme vscode
 (add-to-list 'display-buffer-alist
-			 '("\\*vterm\\*"
-               (display-buffer-reuse-window
-				display-buffer-in-direction)
-               (direction . bottom)
-               (window-height . 0.3)))
+           '("\\*vterm\\*"
+             (display-buffer-reuse-window
+              display-buffer-in-direction)
+             (direction . bottom)
+             (window-height . 0.3)))
 
 (use-package org
-  :hook ((org-mode . org-indent-mode)
-		 (org-mode . visual-line-mode)
-		 (org-mode . variable-pitch-mode)
-		 (org-mode . org-modern-mode))
-  :config
-  (setq org-hide-leading-stars t     
-		org-startup-indented t       
-		org-ellipsis "…")
-  (require 'ob)
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((emacs-lisp . t)
-	 (C . t)
-	 (latex . t)
-	 (java . t)
-	 (org . t))))
+:hook ((org-mode . org-indent-mode)
+       (org-mode . visual-line-mode)
+       (org-mode . variable-pitch-mode)
+       (org-mode . org-modern-mode))
+:config
+(setq org-hide-leading-stars t     
+      org-startup-indented t       
+      org-ellipsis "…")
+(require 'ob)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (C . t)
+   (latex . t)
+   (java . t)
+   (org . t))))
 
 
-(use-package org-modern
-  :after org
-  :config
-  (setq org-modern-star '("◉" "○" "✸" "✿" "◆")
-        org-modern-hide-stars t      
-        org-modern-table nil         
-        org-modern-checkbox '((?X . "☑") (?- . "❍") (?\s . "☐"))))
+    (use-package org-modern
+      :after org
+      :config
+      (setq org-modern-star '("◉" "○" "✸" "✿" "◆")
+            org-modern-hide-stars t      
+            org-modern-table nil         
+            org-modern-checkbox '((?X . "☑") (?- . "❍") (?\s . "☐"))))
 
-(add-hook 'org-mode-hook
-          (lambda ()
-            (variable-pitch-mode 1)
-            (set-face-attribute 'variable-pitch nil :font "Iosevka" :height 110)))
+    (add-hook 'org-mode-hook
+            (lambda ()
+              (variable-pitch-mode 1)
+              (set-face-attribute 'variable-pitch nil :font "Iosevka" :height 110)))
 
-(with-eval-after-load 'org
-  (define-key org-mode-map (kbd "M-<return>") #'org-meta-return))
+    (with-eval-after-load 'org
+      (define-key org-mode-map (kbd "M-<return>") #'org-meta-return))
 
 (use-package vertico
-  :init
-  (vertico-mode))
+      :init
+      (vertico-mode))
 
-(use-package magit
-  :ensure t
-  :bind (("C-x g" . magit-status)))
+      (use-package magit
+      :ensure t
+      :bind (("C-x g" . magit-status)))
 
-(use-package marginalia
-  :after vertico
-  :init (marginalia-mode))
+    (use-package marginalia
+      :after vertico
+      :init (marginalia-mode))
 
 (use-package consult
   :bind (("C-x b" . consult-buffer)
@@ -160,6 +160,17 @@
   
   (setq display-time-format "%H:%M" 
 		display-time-default-load-average nil)
+  
+  (setq battery-mode-line-format " [BAT%p%%]"))
+
+(use-package mood-line
+  (mood-line-mode 1)
+  
+  (display-battery-mode 1)
+  (display-time-mode 1)
+  
+  (setq display-time-format "%H:%M" 
+	display-time-default-load-average nil)
   
   (setq battery-mode-line-format " [BAT%p%%]"))
 

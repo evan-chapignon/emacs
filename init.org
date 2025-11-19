@@ -279,22 +279,33 @@ temps en brut sur un git, mais bon :)
       :after vertico
       :init (marginalia-mode))
 
-  (use-package consult
-    
-    (global-set-key (kbd "C-x b") 'consult-buffer)
-    (global-set-key (kbd "M-y") 'consult-yank-pop)
-    (global-set-key (kbd "C-c m") 'consult-imenu))
+(use-package consult
+  :bind (("C-x b" . consult-buffer)
+         ("M-y"   . consult-yank-pop)
+         ("C-c m" . consult-imenu)))
 
-  (use-package company
-    (company-mode))
-
+(use-package company
+  :hook (after-init . global-company-mode))
 
 
-  (use-package yasnippet
-    :config
-    (setq yas-snippet-dirs
-  		'("~/.config/emacs/snippets"))
-    (yas-global-mode 1))
+
+(use-package yasnippet
+  :config
+  (setq yas-snippet-dirs
+		'("~/.config/emacs/snippets"))
+  (yas-global-mode 1))
+
+(use-package mood-line
+  :config
+  (mood-line-mode)
+  
+  (display-battery-mode 1)
+  (display-time-mode 1)
+  
+  (setq display-time-format "%H:%M" 
+		display-time-default-load-average nil)
+  
+  (setq battery-mode-line-format " [BAT%p%%]"))
 
 #+end_src
 
