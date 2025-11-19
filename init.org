@@ -19,18 +19,28 @@ famille comiquement long)
 J'installe tous les paquets utilisés via [[https://melpa.org][MELPA]]
 
 #+begin_src elisp
-    (setq use-package-always-ensure t)
-  (condition-case nil
-      (require 'use-package)
-    (file-error
-     (package-refresh-contents)
-     (package-install 'use-package)
-     (require 'use-package)))
+(require 'package)
 
+;; Ajouter MELPA
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/")
+             t)
 
-    (require 'package)
-    (add-to-list 'package-archives '("melpa" "https://melpa.org/packages/") t)
+;; Initialiser le système de paquets
+(package-initialize)
 
+;; Mettre à jour si nécessaire
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;; Installer use-package si absent
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+
+;; Toujours installer automatiquement
+(setq use-package-always-ensure t)
 
 #+end_src
 
@@ -58,14 +68,13 @@ J'active ici plein de modes super chouettes
   (global-display-line-numbers-mode t)
   (global-font-lock-mode 1)
   (menu-bar-mode -1)
-  (olivetti-mode 1)
-;;  (pixel-scroll-precision-mode 1)
+  (pixel-scroll-precision-mode -1)
   (recentf-mode 1)
   (save-place-mode 1)
   (savehist-mode 1)
   (scroll-bar-mode -1)
   (tool-bar-mode -1)
-  (company-mode 1)
+
   (which-key-mode 1)
 
 #+end_src
@@ -110,7 +119,7 @@ J'ai aussi mis mes keybinds car je suis très mauvais pour ranger
 #+begin_src elisp
     (defun ouvrir-config-emacs ()
     (interactive)
-    (find-file "~/.config/emacs/README.org"))
+    (find-file "~/.config/emacs/init.org"))
   (global-set-key (kbd "C-c e") 'ouvrir-config-emacs)
   (global-set-key (kbd "C-o") 'avy-goto-char)
   (global-set-key (kbd "C-c l") 'avy-copy-line)
@@ -153,30 +162,39 @@ une partie de ma configuration se focalise sur le org-mode
 
 #+begin_src elisp
   (use-package org
-    :hook ((org-mode . org-indent-mode)
-           (org-mode . visual-line-mode)
-           (org-mode . variable-pitch-mode)
-           (org-mode . org-modern-mode))
-    :config
-    (setq org-hide-leading-stars t     
-          org-startup-indented t       
-          org-ellipsis "…"))           
+  :hook ((org-mode . org-indent-mode)
+         (org-mode . visual-line-mode)
+         (org-mode . variable-pitch-mode)
+         (org-mode . org-modern-mode))
+  :config
+  (setq org-hide-leading-stars t     
+        org-startup-indented t       
+        org-ellipsis "…")
+  (require 'ob)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (C . t)
+     (latex . t)
+     (java . t)
+     (org . t))))
 
-  (use-package org-modern
-    :after org
-    :config
-    (setq org-modern-star '("◉" "○" "✸" "✿" "◆")
-          org-modern-hide-stars t      
-          org-modern-table nil         
-          org-modern-checkbox '((?X . "☑") (?- . "❍") (?\s . "☐"))))
 
-  (add-hook 'org-mode-hook
-          (lambda ()
-            (variable-pitch-mode 1)
-            (set-face-attribute 'variable-pitch nil :font "Iosevka" :height 110)))
+      (use-package org-modern
+        :after org
+        :config
+        (setq org-modern-star '("◉" "○" "✸" "✿" "◆")
+              org-modern-hide-stars t      
+              org-modern-table nil         
+              org-modern-checkbox '((?X . "☑") (?- . "❍") (?\s . "☐"))))
 
-  (with-eval-after-load 'org
-    (define-key org-mode-map (kbd "M-<return>") #'org-meta-return))
+      (add-hook 'org-mode-hook
+              (lambda ()
+                (variable-pitch-mode 1)
+                (set-face-attribute 'variable-pitch nil :font "Iosevka" :height 110)))
+
+      (with-eval-after-load 'org
+        (define-key org-mode-map (kbd "M-<return>") #'org-meta-return))
 
 #+end_src
 
@@ -263,13 +281,27 @@ temps en brut sur un git, mais bon :)
 * use-package
 
 #+begin_src elisp
-  (use-package vertico
-  :init
-  (vertico-mode))
+      (use-package vertico
+      :init
+      (vertico-mode))
 
-  (use-package magit
-  :ensure t
-  :bind (("C-x g" . magit-status)))
+      (use-package magit
+      :ensure t
+      :bind (("C-x g" . magit-status)))
+
+    (use-package marginalia
+      :after vertico
+      :init (marginalia-mode))
+
+  (use-package consult
+    
+    (global-set-key (kbd "C-x b") 'consult-buffer)
+    (global-set-key (kbd "M-y") 'consult-yank-pop)
+    (global-set-key (kbd "C-c m") 'consult-imenu))
+
+  (use-package company
+    (company-mode))
+
 
 #+end_src
 
@@ -278,21 +310,19 @@ temps en brut sur un git, mais bon :)
 J'utilise mood-line, ou en tout cas je teste :)
 
 #+begin_src elisp
-  (mood-line-mode 1)
-
-  (display-battery-mode 1)
-  (display-time-mode 1)
-
-  (setq display-time-format "%H:%M" 
-        display-time-default-load-average nil)
-
-  (setq battery-mode-line-format " [BAT%p%%]")
+  (use-package mood-line
+    (mood-line-mode 1)
+    
+    (display-battery-mode 1)
+    (display-time-mode 1)
+    
+    (setq display-time-format "%H:%M" 
+  	display-time-default-load-average nil)
+    
+    (setq battery-mode-line-format " [BAT%p%%]"))
 
 #+end_src
 
-* EDT
-
-J'ai une repo git privée où je range mon emploi du temps
 
 #+begin_src elisp
   (setq org-agenda-files '("~/org/TODO/todo.org" "~/org/edt.org"))
@@ -320,3 +350,4 @@ J'ai une repo git privée où je range mon emploi du temps
   (load "~/.config/emacs/theme.el")
   (load "~/.config/emacs/latex.el")
 #+end_src
+
