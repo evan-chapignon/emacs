@@ -6,7 +6,7 @@
    (package-install 'use-package)
    (require 'use-package)))
 (require 'package)
-(add-to-list 'package-archives '("melpa" "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 (require 'recentf)
 (recentf-mode 1)
@@ -179,7 +179,7 @@
 
 (setq org-capture-templates
       '(("t" "Tâche" entry
-		 (file+headline "~/org/todo.org" "Tâches")
+		 (file+headline "~/org/TODO/todo.org" "Tâches")
 		 "* TODO %?\nSCHEDULED: %^t\n%u\n%a"
 		 :empty-lines 1)))
 

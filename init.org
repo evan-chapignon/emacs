@@ -27,7 +27,7 @@ J'installe tous les paquets utilisés via [[https://melpa.org][MELPA]]
      (package-install 'use-package)
      (require 'use-package)))
   (require 'package)
-  (add-to-list 'package-archives '("melpa" "https://melpa.org/packages/") t)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 #+end_src
 
 * Boot screen
@@ -334,7 +334,7 @@ J'utilise mood-line, ou en tout cas je teste :)
 
   (setq org-capture-templates
         '(("t" "Tâche" entry
-  		 (file+headline "~/org/todo.org" "Tâches")
+  		 (file+headline "~/org/TODO/todo.org" "Tâches")
   		 "* TODO %?\nSCHEDULED: %^t\n%u\n%a"
   		 :empty-lines 1)))
 
@@ -353,5 +353,6 @@ J'utilise mood-line, ou en tout cas je teste :)
 #+begin_src elisp
   (load "~/.config/emacs/theme.el")
   (load "~/.config/emacs/latex.el")
+  (load "~/.config/emacs/ia.el")
 #+end_src
 
