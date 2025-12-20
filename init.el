@@ -15,7 +15,8 @@
 (delete-selection-mode t)
 (display-battery-mode 1)
 (electric-pair-mode 1)
-(global-display-line-numbers-mode t)
+(global-display-line-numbers-mode -1)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (global-font-lock-mode 1)
 (menu-bar-mode -1)
 (pixel-scroll-precision-mode -1)
@@ -56,6 +57,7 @@
 (setq-default tab-width 4)
 
 (defun ouvrir-config-emacs ()
+  "Ouvre... la config emacs"
   (interactive)
   (find-file "~/.config/emacs/init.org"))
 (global-set-key (kbd "C-c e") 'ouvrir-config-emacs)
@@ -63,32 +65,39 @@
 (global-set-key (kbd "C-c l") 'avy-copy-line)
 (global-set-key (kbd "C-c s") 'avy-goto-line)
 
-(defun shuffle-lines (beg end)
-  (interactive "r")
-  (let ((lines (split-string (buffer-substring beg end) "\n" t)))
-	(setq lines (shuffle-vector (vconcat lines)))
-	(delete-region beg end)
-	(goto-char beg)
-	(insert (mapconcat 'identity (append lines nil) "\n"))))
+(defun other-other-window ()
+  "Passe à la fenêtre précédente."
+  (interactive)
+  (other-window -1))
 
-;; Je vous PROMETS que c'est utile
+(global-set-key (kbd "C-<iso-lefttab>") 'other-other-window)
+
+  (defun shuffle-lines (beg end)
+    (interactive "r")
+    (let ((lines (split-string (buffer-substring beg end) "\n" t)))
+  	(setq lines (shuffle-vector (vconcat lines)))
+  	(delete-region beg end)
+  	(goto-char beg)
+  	(insert (mapconcat 'identity (append lines nil) "\n"))))
+
+  ;; Je vous PROMETS que c'est utile
 
 
-(global-set-key (kbd "C-c C-r") 'recentf-open-files)
+  (global-set-key (kbd "C-c C-r") 'recentf-open-files)
 
-(global-set-key (kbd "C-:") 'er/expand-region)
-(global-set-key (kbd "C-<tab>") 'other-window)
-(global-set-key (kbd "C-x C-y") 'compile)
+  (global-set-key (kbd "C-:") 'er/expand-region)
+  (global-set-key (kbd "C-<tab>") 'other-window)
+  (global-set-key (kbd "C-x C-y") 'compile)
 
 
-;; Pas vraiment une fonction, mais ouvre vterm dans un buffer sous le
-;;  buffer actuel, un peu comme vscode
-(add-to-list 'display-buffer-alist
-			 '("\\*vterm\\*"
-               (display-buffer-reuse-window
-				display-buffer-in-direction)
-               (direction . bottom)
-               (window-height . 0.3)))
+  ;; Pas vraiment une fonction, mais ouvre vterm dans un buffer sous le
+  ;;  buffer actuel, un peu comme vscode
+  (add-to-list 'display-buffer-alist
+  			 '("\\*vterm\\*"
+                 (display-buffer-reuse-window
+  				display-buffer-in-direction)
+                 (direction . bottom)
+                 (window-height . 0.3)))
 
 (use-package org
   :hook ((org-mode . org-indent-mode)
@@ -215,6 +224,8 @@
 (setq initial-buffer-choice (lambda () (get-buffer-create
 										"*dashboard*")))
 (add-hook 'server-after-make-frame-hook 'dashboard-refresh-buffer)
+
+(setq dashboard-startup-banner "~/Pictures/player1.png")
 
 (setq org-agenda-files '("~/org/TODO/todo.org" "~/org/edt.org"))
 (setq org-agenda-span 30)
