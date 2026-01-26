@@ -1,0 +1,40 @@
+;; -*- emacs-lisp -*- <26/01/25 00:52:33 ~/.config/emacs/tramp>
+;; Tramp connection history.  Don't change this file.
+;; Run `M-x tramp-cleanup-all-connections' instead.
+
+(((tramp-file-name "cache" nil nil nil nil nil nil)
+  ("tramp-version" "2.7.3.30.2"))
+ ((tramp-file-name "su" "root" nil "colonel-whatsapp" nil nil nil)
+  ("null-device" "/dev/null") ("uname" "Linux 6.12.54-gentoo-dist")
+  ("locale" "LC_ALL=en_US.utf8") ("test" "test")
+  ("file-exists" "test -e")
+  ("remote-path"
+   ("/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin"
+	"/usr/local/sbin"))
+  ("pipe-buf" 4096) ("remote-shell" "/bin/sh") ("~root" "/root")
+  ("perl-file-spec" t) ("perl-cwd-realpath" t) ("perl" "\\perl")
+  ("stat" "env QUOTING_STYLE=locale \\stat") ("id" "/bin/id")
+  ("uid-integer" 0) ("uid-string" "root") ("gid-integer" 0)
+  ("gid-string" "root") ("groups-integer" (0 1 2 3 4 6 10 11 26 27))
+  ("groups-string"
+   ("root" "bin" "daemon" "sys" "adm" "disk" "wheel" "floppy" "tape"
+	"video"))
+  ("case-insensitive" nil) ("~" "/root") ("readlink" "\\readlink")
+  ("bzr" nil) ("git" "\\git") ("hg" nil) ("ln" "\\ln"))
+ ((tramp-file-name "su" "root" nil "gentoo-linux-systemd" nil nil nil)
+  ("null-device" "/dev/null") ("uname" "Linux 6.12.54-gentoo-dist")
+  ("locale" "LC_ALL=en_US.utf8") ("test" "test")
+  ("file-exists" "test -e")
+  ("remote-path"
+   ("/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin"
+	"/usr/local/sbin"))
+  ("pipe-buf" 4096) ("remote-shell" "/bin/sh") ("~root" "/root")
+  ("perl-file-spec" t) ("perl-cwd-realpath" t) ("perl" "\\perl")
+  ("stat" "env QUOTING_STYLE=locale \\stat") ("id" "/bin/id")
+  ("uid-integer" 0) ("uid-string" "root") ("gid-integer" 0)
+  ("gid-string" "root") ("groups-integer" (0 1 2 3 4 6 10 11 26 27))
+  ("groups-string"
+   ("root" "bin" "daemon" "sys" "adm" "disk" "wheel" "floppy" "tape"
+	"video"))
+  ("case-insensitive" nil) ("~" "/root") ("readlink" "\\readlink")
+  ("bzr" nil) ("git" "\\git") ("hg" nil) ("ln" "\\ln")))

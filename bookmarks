@@ -1,0 +1,39 @@
+;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8-emacs; mode: lisp-data -*-
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("S4"
+ (filename . "~/cours_perso/S4/")
+ (front-context-string)
+ (rear-context-string . "96 Jan 20 11:53 ")
+ (position . 164)
+ (last-modified 26991 24366 705998 378000))
+("portfolio"
+ (filename . "~/cours_perso/S3/com/portfolio/index.html")
+ (front-context-string . "<!DOCTYPE html>\n")
+ (rear-context-string)
+ (position . 1)
+ (last-modified 26958 26215 678891 817000))
+("package.use"
+ (filename .
+		   #("/su:root@colonel-whatsapp:/etc/portage/package.use/" 4 8
+			 (tramp-default t)
+			 9 25
+			 (tramp-default t)))
+ (front-context-string . "bluetooth\n  -rw-")
+ (rear-context-string . "29 Sep 22 21:05 ")
+ (position . 192)
+ (last-modified 26953 41536 547189 575000))
+("dwm"
+ (filename . "~/.config/suckless/")
+ (front-context-string . "/* See LICENSE f")
+ (rear-context-string)
+ (position . 1)
+ (last-modified 26994 15002 104813 624000))
+("org-capture-last-stored"
+ (filename . "~/org/TODO/todo.org")
+ (front-context-string . "** TODO Installe")
+ (rear-context-string . "ier absences]]\n\n")
+ (position . 1666)
+ (last-modified 26952 18956 279070 89000))
+)
