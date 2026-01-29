@@ -29,7 +29,7 @@
 (which-key-mode 1)
 
 (set-face-attribute 'default nil :font "Iosevka" :height 110)
-(require 'mu4e)
+;; (require 'mu4e)
 (set-face-attribute 'variable-pitch nil :font "Iosevka" :height 110)
 (set-window-buffer nil (current-buffer))
 (setq backup-directory-alist '(("." . "~/.config/emacs/backups")))
@@ -241,4 +241,4 @@
 
 (load "~/.config/emacs/theme.el")
 (load "~/.config/emacs/latex.el")
-(load "~/.config/emacs/ia.el")
+

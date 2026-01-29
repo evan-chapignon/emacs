@@ -325,6 +325,5 @@ temps en brut sur un git, mais bon :)
 #+begin_src elisp
   (load "~/.config/emacs/theme.el")
   (load "~/.config/emacs/latex.el")
-  (load "~/.config/emacs/ia.el")
 #+end_src
 
