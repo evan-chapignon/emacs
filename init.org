@@ -173,6 +173,13 @@ emacs, surtout avy (utilisez avy)
 
   (use-package expand-region
     :bind ("C-:" . er/expand-region))
+
+  (use-package orderless
+  :ensure t
+  :init
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles basic partial-completion)))))
     
 #+end_src
 
