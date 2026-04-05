@@ -1,54 +1,26 @@
-;; -*- emacs-lisp -*- <26/01/29 18:26:23 ~/.config/emacs/tramp>
+;; -*- emacs-lisp -*- <26/04/04 23:42:50 ~/.config/emacs/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; Run `M-x tramp-cleanup-all-connections' instead.
 
 (((tramp-file-name "cache" nil nil nil nil nil nil)
-  ("tramp-version" "2.7.3.30.2"))
- ((tramp-file-name "su" "root" nil "colonel-whatsapp" nil nil nil)
-  ("null-device" "/dev/null") ("uname" "Linux 6.12.54-gentoo-dist")
-  ("locale" "LC_ALL=en_US.utf8") ("test" "test")
-  ("file-exists" "test -e")
+  ("tramp-version" "2.7.1.30.1"))
+ ((tramp-file-name "ssh" "evan.delepine-gengembre.etu" nil
+				   "tp.iutinfo.fr" nil nil nil)
+  ("null-device" "/dev/null") ("uname" "Linux 6.1.0-42-amd64")
+  ("locale" "LC_ALL=C.utf8") ("test" "test") ("file-exists" "test -e")
   ("remote-path"
    ("/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin"
 	"/usr/local/sbin"))
-  ("pipe-buf" 4096) ("remote-shell" "/bin/sh") ("~root" "/root")
+  ("pipe-buf" 4096) ("remote-shell" "/bin/sh")
+  ("~" "/home/infoetu/evan.delepine-gengembre.etu")
   ("perl-file-spec" t) ("perl-cwd-realpath" t) ("perl" "\\perl")
+  ("case-insensitive" nil) ("readlink" "\\readlink")
+  ("ls" "/bin/ls --color=never") ("ls--dired" "--dired")
+  ("ls--quoting-style=literal --show-control-chars"
+   "--quoting-style=literal --show-control-chars")
+  ("df-blocksize" 1)
+  ("df" "\\df --block-size=1 --output=size,used,avail")
   ("stat" "env QUOTING_STYLE=locale \\stat") ("id" "/bin/id")
-  ("uid-integer" 0) ("uid-string" "root") ("gid-integer" 0)
-  ("gid-string" "root") ("groups-integer" (0 1 2 3 4 6 10 11 26 27))
-  ("groups-string"
-   ("root" "bin" "daemon" "sys" "adm" "disk" "wheel" "floppy" "tape"
-	"video"))
-  ("case-insensitive" nil) ("~" "/root") ("readlink" "\\readlink")
-  ("bzr" nil) ("git" "\\git") ("hg" nil) ("ln" "\\ln"))
- ((tramp-file-name "su" "root" nil "gentoo-linux-systemd" nil nil nil)
-  ("null-device" "/dev/null") ("uname" "Linux 6.12.54-gentoo-dist")
-  ("locale" "LC_ALL=en_US.utf8") ("test" "test")
-  ("file-exists" "test -e")
-  ("remote-path"
-   ("/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin"
-	"/usr/local/sbin"))
-  ("pipe-buf" 4096) ("remote-shell" "/bin/sh") ("~root" "/root")
-  ("perl-file-spec" t) ("perl-cwd-realpath" t) ("perl" "\\perl")
-  ("stat" "env QUOTING_STYLE=locale \\stat") ("id" "/bin/id")
-  ("uid-integer" 0) ("uid-string" "root") ("gid-integer" 0)
-  ("gid-string" "root") ("groups-integer" (0 1 2 3 4 6 10 11 26 27))
-  ("groups-string"
-   ("root" "bin" "daemon" "sys" "adm" "disk" "wheel" "floppy" "tape"
-	"video"))
-  ("case-insensitive" nil) ("~" "/root") ("readlink" "\\readlink")
-  ("bzr" nil) ("git" "\\git") ("hg" nil) ("ln" "\\ln"))
- ((tramp-file-name "su" "root" nil "nixos" nil nil nil)
-  ("null-device" "/dev/null") ("uname" "Linux 6.12.67")
-  ("locale" "LC_ALL=en_US.utf8") ("test" "test")
-  ("file-exists" "test -e")
-  ("remote-path"
-   ("/run/wrappers/bin" "/run/current-system/sw/bin" "/bin" "/usr/bin"))
-  ("pipe-buf" 4096) ("remote-shell" "/bin/sh") ("~root" "/root")
-  ("perl-file-spec" t) ("perl-cwd-realpath" t) ("perl" "\\perl")
-  ("stat" "env QUOTING_STYLE=locale \\stat")
-  ("id" "/run/current-system/sw/bin/id") ("uid-integer" 0)
-  ("uid-string" "root") ("gid-integer" 0) ("gid-string" "root")
-  ("groups-integer" (0)) ("groups-string" ("root"))
-  ("case-insensitive" nil) ("~" "/root") ("readlink" "\\readlink")
-  ("bzr" nil) ("git" "\\git") ("hg" nil)))
+  ("uid-integer" nil) ("uid-string" nil) ("gid-integer" nil)
+  ("gid-string" nil) ("groups-integer" nil) ("groups-string" nil))
+ ((tramp-file-name "su" "root" nil "colonel-whatsapp" nil nil nil) nil))

@@ -16,7 +16,7 @@
       									"*dashboard*")))
 (add-hook 'server-after-make-frame-hook 'dashboard-refresh-buffer)
 
-(setq dashboard-startup-banner "~/.config/emacs/ben.png")
+(setq dashboard-startup-banner "~/.config/emacs/pikachu.png")
 
 (use-package mood-line
   :config
@@ -30,8 +30,8 @@
   
   (setq battery-mode-line-format " [BAT%p%%]"))
 
-(set-face-attribute 'default nil :font "Iosevka" :height 110)
-(set-face-attribute 'variable-pitch nil :font "Iosevka" :height 110)
+(set-face-attribute 'default nil :font "IosevkaNerdFont" :height 110)
+(set-face-attribute 'variable-pitch nil :font "IosevkaNerdFont" :height 110)
 
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
@@ -43,12 +43,11 @@
 (setq visible-bell t)
 
 (use-package olivetti
-:ensure t
+  :ensure t
   :custom
   (olivetti-set-width 150))
 
 (delete-selection-mode t)
-(display-battery-mode 1)
 (electric-pair-mode 1)
 (global-display-line-numbers-mode -1)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
@@ -64,12 +63,9 @@
 (setq-default tab-width 4)
 (setq scroll-margin 5)
 (setq user-mail-address "evan.delepine-gengembre.etu@univ-lille.fr"
-	  user-full-name "Evan Delepine")
+user-full-name "Evan Delepine")
 (setq backup-directory-alist '(("." . "~/.config/emacs/backups")))
 (setq history-length 25)
-
-(setq custom-file (concat user-emacs-directory "custom.el"))
-
 (setq-default auto-fill-function 'do-auto-fill)
 (setq ring-bell-function 'ignore)
 
@@ -89,7 +85,7 @@
 
 (global-set-key (kbd "C-c C-r") 'recentf-open-files)
 
-(global-set-key (kbd "C-:") 'er/expand-region)
+
 (global-set-key (kbd "C-<tab>") 'other-window)
 (global-set-key (kbd "C-x C-y") 'compile)
 
@@ -104,23 +100,33 @@
                (window-height . 0.3)))
 
 (use-package vertico
-  :init
-  (vertico-mode))
+    :init
+    (vertico-mode))
 
-(use-package marginalia
-  :after vertico
-  :init (marginalia-mode))
+  (use-package marginalia
+    :after vertico
+    :init (marginalia-mode))
 
-(use-package consult
-  :bind (("C-x b" . consult-buffer)
-         ("M-y"   . consult-yank-pop)
-         ("C-c m" . consult-imenu)))
+  (use-package consult
+    :bind (("C-x b" . consult-buffer)
+           ("M-y"   . consult-yank-pop)
+           ("C-c m" . consult-imenu)))
 
-(use-package avy
-  :bind (("C-o" . avy-goto-char)
-		 ("C-c l" . avy-copy-line)
-		 ("C-c s" . avy-goto-line)
-		 ))
+  (use-package avy
+    :bind (("C-o" . avy-goto-char)
+  		 ("C-c l" . avy-copy-line)
+  		 ("C-c s" . avy-goto-line)
+  		 ))
+
+(use-package expand-region
+  :bind ("C-:" . er/expand-region))
+
+(use-package orderless
+:ensure t
+:init
+(setq completion-styles '(orderless basic)
+      completion-category-defaults nil
+      completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package magit
   :ensure t
@@ -174,7 +180,7 @@
 
   (add-hook 'org-mode-hook
             (lambda ()
-              (set-face-attribute 'variable-pitch nil :font "Iosevka" :height 110))))
+              (set-face-attribute 'variable-pitch nil :font "IosevkaNerdFont" :height 110))))
 
 (use-package org-modern
   :ensure t
@@ -189,3 +195,23 @@
 
 (load "~/.config/emacs/theme.el")
 (load "~/.config/emacs/latex.el")
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(0blayout auctex avy catppuccin-theme chess company consult copilot
+			  dashboard docker-compose-mode dockerfile-mode
+			  dracula-theme ement evil expand-region gptel
+			  gruvbox-theme lsp-mode magit marginalia monkeytype
+			  mood-line nix-mode nord-theme olivetti orderless
+			  org-modern pdf-tools solarized-theme vertico yasnippet)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-document-title ((t (:height 1.5 :foreground "#bd93f9" :weight bold))))
+ '(org-level-1 ((t (:inherit outline-1 :height 1.2 :foreground "#bd93f9" :weight bold))))
+ '(org-level-2 ((t (:inherit outline-2 :height 1.1 :foreground "#bd93f9")))))

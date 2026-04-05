@@ -44,7 +44,7 @@ paquets externes.
         									"*dashboard*")))
   (add-hook 'server-after-make-frame-hook 'dashboard-refresh-buffer)
 
-  (setq dashboard-startup-banner "~/.config/emacs/ben.png")
+  (setq dashboard-startup-banner "~/.config/emacs/pikachu.png")
 
   (use-package mood-line
     :config
@@ -58,8 +58,8 @@ paquets externes.
     
     (setq battery-mode-line-format " [BAT%p%%]"))
 
-  (set-face-attribute 'default nil :font "Iosevka" :height 110)
-  (set-face-attribute 'variable-pitch nil :font "Iosevka" :height 110)
+  (set-face-attribute 'default nil :font "IosevkaNerdFont" :height 110)
+  (set-face-attribute 'variable-pitch nil :font "IosevkaNerdFont" :height 110)
 
   (scroll-bar-mode -1)
   (tool-bar-mode -1)
@@ -249,7 +249,7 @@ une partie de ma configuration se focalise sur le org-mode.
 
     (add-hook 'org-mode-hook
               (lambda ()
-                (set-face-attribute 'variable-pitch nil :font "Iosevka" :height 110))))
+                (set-face-attribute 'variable-pitch nil :font "IosevkaNerdFont" :height 110))))
 
   (use-package org-modern
     :ensure t
