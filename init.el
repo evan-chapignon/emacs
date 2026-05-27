@@ -9,43 +9,93 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 (use-package dashboard
-  :ensure t
-  :config
-  (dashboard-setup-startup-hook))
-(setq initial-buffer-choice (lambda () (get-buffer-create
-      									"*dashboard*")))
-(add-hook 'server-after-make-frame-hook 'dashboard-refresh-buffer)
+    :ensure t
+    :config
+    (dashboard-setup-startup-hook))
+  (setq initial-buffer-choice (lambda () (get-buffer-create
+        									"*dashboard*")))
+  (add-hook 'server-after-make-frame-hook 'dashboard-refresh-buffer)
+(setq dashboard-center-content t)
+  (setq dashboard-startup-banner 'official)
 
-(setq dashboard-startup-banner "~/.config/emacs/pikachu.png")
+  ;; (use-package mood-line
+  ;;   :config
+  ;;   (mood-line-mode)
+    
+  ;;   (display-battery-mode 1)
+  ;;   (display-time-mode 1)
+    
+  ;;   (setq display-time-format "%H:%M" 
+  ;;       	display-time-default-load-average nil)
+    
+  ;;   (setq battery-mode-line-format " [BAT%p%%]"))
 
-(use-package mood-line
-  :config
-  (mood-line-mode)
+  (set-face-attribute '
+   default nil :font "IosevkaNerdFont" :height 110)
+  (set-face-attribute 'variable-pitch nil :font "IosevkaNerdFont" :height 110)
+
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+
+  (setq frame-resize-pixelwise t)
+  (setq inhibit-startup-screen t)
+  (setq initial-scratch-message nil)
+  (setq visible-bell t)
+
+  (use-package olivetti
+    :ensure t
+    :custom
+    (olivetti-set-width 150))
+
+(require 'imenu)
+  (require 'imenu-list)
+
+  (defun my/org-tree-to-indirect-buffer ()
+    "Create indirect buffer, narrow it to current subtree and unfold blocks"
+    
+    (org-tree-to-indirect-buffer)
+    (org-show-block-all)
+    (setq-local my/org-blocks-hidden nil))
+
+  (defun my/org-sidebar ()
+    "Open an imenu list on the left that allow navigation."
+    
+    (interactive)
+    (setq imenu-list-after-jump-hook #'my/org-tree-to-indirect-buffer
+          imenu-list-position 'left
+          imenu-list-size 36
+          imenu-list-focus-after-activation t)
+
+    (let ((heading (substring-no-properties (or (org-get-heading t t t t) ""))))
+      (when (buffer-base-buffer)
+        (switch-to-buffer (buffer-base-buffer)))
+      (imenu-list-minor-mode)
+      (imenu-list-stop-timer)
+      (hl-line-mode)
+      (face-remap-add-relative 'hl-line :inherit 'nano-subtle)
+      (setq header-line-format
+            '(:eval
+              (nano-modeline-render nil
+                                    (buffer-name imenu-list--displayed-buffer)
+                                    "(outline)"
+                                    "")))
+      (setq-local cursor-type nil)
+      (when (> (length heading) 0)
+        (goto-char (point-min))
+        (search-forward heading)
+        (imenu-list-display-dwim))))
+
   
-  (display-battery-mode 1)
-  (display-time-mode 1)
+(defun my/org-sidebar-toggle ()
+  "Toggle the org-sidebar"
   
-  (setq display-time-format "%H:%M" 
-      	display-time-default-load-average nil)
-  
-  (setq battery-mode-line-format " [BAT%p%%]"))
-
-(set-face-attribute 'default nil :font "IosevkaNerdFont" :height 110)
-(set-face-attribute 'variable-pitch nil :font "IosevkaNerdFont" :height 110)
-
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-
-(setq frame-resize-pixelwise t)
-(setq inhibit-startup-screen t)
-(setq initial-scratch-message nil)
-(setq visible-bell t)
-
-(use-package olivetti
-  :ensure t
-  :custom
-  (olivetti-set-width 150))
+  (interactive)
+  (if (get-buffer-window "*Ilist*")
+      (progn 
+        (quit-window nil (get-buffer-window "*Ilist*"))
+        (switch-to-buffer (buffer-base-buffer)))
+    (my/org-sidebar)))
 
 (delete-selection-mode t)
 (electric-pair-mode 1)
@@ -135,10 +185,13 @@ user-full-name "Evan Delepine")
 (use-package company
   :hook (after-init . global-company-mode))
 
+(add-hook 'LaTeX-mode-hook 'company-mode)
+(require 'lsp-latex)
+(add-hook 'LaTeX-mode-hook #'lsp)
 (use-package yasnippet
   :config
   (setq yas-snippet-dirs
-		'("~/.config/emacs/snippets"))
+  		'("~/.config/emacs/snippets"))
   (yas-global-mode 1))
 
 (use-package org
@@ -194,6 +247,7 @@ user-full-name "Evan Delepine")
   (global-org-modern-mode))
 
 (load "~/.config/emacs/theme.el")
+(load "~/.config/emacs/publish.el")
 (load "~/.config/emacs/latex.el")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -201,17 +255,18 @@ user-full-name "Evan Delepine")
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(0blayout auctex avy catppuccin-theme chess company consult copilot
-			  dashboard docker-compose-mode dockerfile-mode
-			  dracula-theme ement evil expand-region gptel
-			  gruvbox-theme lsp-mode magit marginalia monkeytype
-			  mood-line nix-mode nord-theme olivetti orderless
-			  org-modern pdf-tools solarized-theme vertico yasnippet)))
+   '(0blayout @ auctex avy brief catppuccin-theme chess company-math
+              copilot dashboard docker-compose-mode dockerfile-mode
+              dracula-theme ement evil expand-region gptel
+              gruvbox-theme htmlize imenu-extra imenu-list ivy
+              lsp-latex magit marginalia monkeytype mood-line mu4e
+              multiple-cursors nano-modeline nix-mode nord-theme nov
+              olivetti orderless org-appear org-modern pdf-tools
+              rainbow-delimiters solarized-theme spray vertico
+              yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-document-title ((t (:height 1.5 :foreground "#bd93f9" :weight bold))))
- '(org-level-1 ((t (:inherit outline-1 :height 1.2 :foreground "#bd93f9" :weight bold))))
- '(org-level-2 ((t (:inherit outline-2 :height 1.1 :foreground "#bd93f9")))))
+ )
